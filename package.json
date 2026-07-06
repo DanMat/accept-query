@@ -1,6 +1,6 @@
 {
   "name": "@danmat/accept-query",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse, build, and content-negotiate the Accept-Query HTTP header (RFC 10008) for the QUERY method. Zero dependencies, fully typed.",
   "keywords": [
     "accept-query",
