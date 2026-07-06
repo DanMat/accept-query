@@ -90,9 +90,12 @@ interface MediaRange {
 
 `AcceptQueryError` is thrown only for programmer misuse (e.g. `formatAcceptQuery` on a range missing its type/subtype). Parsing never throws — it's deliberately liberal in what it accepts.
 
-## Related
+## The `@danmat` QUERY suite
 
-- [`@danmat/query-fetch`](https://github.com/DanMat/query-fetch) — a tiny client for the HTTP QUERY method itself.
+- [`@danmat/query-fetch`](https://github.com/DanMat/query-fetch) — client for the QUERY method.
+- **`@danmat/accept-query`** — parse/build/negotiate the `Accept-Query` header *(you are here)*.
+- [`@danmat/query-cache`](https://github.com/DanMat/query-cache) — body-aware response caching.
+- [`@danmat/query-server`](https://github.com/DanMat/query-server) — server-side request validation & negotiation.
 
 ## License
 
