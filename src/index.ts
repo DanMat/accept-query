@@ -35,7 +35,8 @@ export interface MediaRange {
 /** Accepted by {@link formatAcceptQuery}: a raw string or a structured range. */
 export type MediaRangeInput =
   | string
-  | (Pick<MediaRange, "type" | "subtype"> & Partial<Omit<MediaRange, "type" | "subtype">>);
+  | (Pick<MediaRange, "type" | "subtype"> &
+      Partial<Omit<MediaRange, "type" | "subtype">>);
 
 /** Split a header value on `sep`, ignoring separators inside double quotes. */
 function splitOutsideQuotes(value: string, sep: string): string[] {
@@ -88,7 +89,10 @@ function parseRange(token: string): MediaRange | null {
   if (slash === -1) return null;
 
   const type = mediaType.slice(0, slash).trim().toLowerCase();
-  const subtype = mediaType.slice(slash + 1).trim().toLowerCase();
+  const subtype = mediaType
+    .slice(slash + 1)
+    .trim()
+    .toLowerCase();
   if (!type || !subtype) return null;
 
   let quality = 1;
@@ -122,7 +126,7 @@ function parseRange(token: string): MediaRange | null {
  * ```
  */
 export function parseAcceptQuery(value: string): MediaRange[] {
-  if (!value || !value.trim()) return [];
+  if (!value?.trim()) return [];
 
   const ranges: Array<{ range: MediaRange; index: number }> = [];
   let index = 0;

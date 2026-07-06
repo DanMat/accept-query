@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  parseAcceptQuery,
+  AcceptQueryError,
   formatAcceptQuery,
   negotiateQuery,
-  AcceptQueryError,
+  parseAcceptQuery,
 } from "../src/index.js";
 
 describe("parseAcceptQuery", () => {
@@ -59,7 +59,9 @@ describe("parseAcceptQuery", () => {
   });
 
   it("skips malformed tokens leniently", () => {
-    const result = parseAcceptQuery("not-a-media-type, application/json, /nope");
+    const result = parseAcceptQuery(
+      "not-a-media-type, application/json, /nope",
+    );
     expect(result).toEqual([
       { type: "application", subtype: "json", quality: 1, params: {} },
     ]);
@@ -78,23 +80,21 @@ describe("formatAcceptQuery", () => {
 
   it("omits q when quality is 1 and trims trailing zeros otherwise", () => {
     expect(formatAcceptQuery([{ type: "a", subtype: "b" }])).toBe("a/b");
-    expect(
-      formatAcceptQuery([{ type: "a", subtype: "b", quality: 0.5 }]),
-    ).toBe("a/b;q=0.5");
+    expect(formatAcceptQuery([{ type: "a", subtype: "b", quality: 0.5 }])).toBe(
+      "a/b;q=0.5",
+    );
   });
 
   it("quotes parameter values that aren't tokens", () => {
     expect(
-      formatAcceptQuery([
-        { type: "a", subtype: "b", params: { note: "x y" } },
-      ]),
+      formatAcceptQuery([{ type: "a", subtype: "b", params: { note: "x y" } }]),
     ).toBe('a/b;note="x y"');
   });
 
   it("throws AcceptQueryError when type or subtype is missing", () => {
-    expect(() =>
-      formatAcceptQuery([{ type: "a", subtype: "" }]),
-    ).toThrow(AcceptQueryError);
+    expect(() => formatAcceptQuery([{ type: "a", subtype: "" }])).toThrow(
+      AcceptQueryError,
+    );
   });
 
   it("round-trips through parseAcceptQuery", () => {
@@ -123,9 +123,9 @@ describe("negotiateQuery", () => {
   });
 
   it("matches via a type wildcard", () => {
-    expect(
-      negotiateQuery("application/*", ["application/json"]),
-    ).toBe("application/json");
+    expect(negotiateQuery("application/*", ["application/json"])).toBe(
+      "application/json",
+    );
   });
 
   it("matches via a full wildcard", () => {
