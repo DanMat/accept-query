@@ -97,6 +97,8 @@ interface MediaRange {
 - [`@danmat/query-cache`](https://github.com/DanMat/query-cache) — body-aware response caching.
 - [`@danmat/query-server`](https://github.com/DanMat/query-server) — server-side request validation & negotiation.
 
+▶️ **See them work together:** [query-suite-example](https://github.com/DanMat/query-suite-example) — a runnable stock-screener demo using all four.
+
 ## License
 
 [MIT](./LICENSE) © Dan Matthew
